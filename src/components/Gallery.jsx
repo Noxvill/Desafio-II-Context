@@ -1,33 +1,31 @@
 import { useContext } from "react";
-import { PhotosContext } from "../Context/PhotosContext";
+import { PhotosContext } from "../Context/ContextFotos";
 import IconHeart from "./IconHeart";
 
 const Gallery = () => {
   const { photos, setPhotos } = useContext(PhotosContext);
 
-  const addFavorite = (id) => {
-    const newPhotos = photos.map((photo) => {
-      // EVALUO EL ID QUE LLEGA PARA VER SI COINCIDE CON ALGUNO DE LOS OBJETOS (PHOTOS)
-      // SI COINCIDE, RETORNO TODO EL OBJETO Y LA INVERSA DE "ISFAVORITE" PARA AGREGAR A FAVORITOS 👇
-      if (photo.id === id) {
+  const Favoritos = (id) => {
+    const newFotos = photos.map((photo) => {
+    if (photo.id === id) {
         return {
           ...photo,
           isFavorite: !photo.isFavorite,
         };
       }
-      // SINO RETORNO LAS FOTOS QUE HAY 👇
+  
       return photo;
     });
-    setPhotos(newPhotos);
+    setPhotos(newFotos);
   };
 
   return (
 
-    // LO PRIMERO, SE RENDERIZAN TODAS LAS FOTOS 👇
+    
     <div className="gallery grid-columns-5 p-3">
       {photos.map((photo, i) => (
         <div
-          onClick={() => addFavorite(photo.id)}
+          onClick={() => Favoritos(photo.id)}
           className="photo"
           style={{ backgroundImage: `url(${photo.src.tiny})` }}
           key={i}
